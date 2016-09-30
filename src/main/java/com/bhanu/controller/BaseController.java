@@ -1,9 +1,16 @@
 package com.bhanu.controller;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,6 +23,7 @@ public class BaseController {
 
 	@RequestMapping(value = "/goal", method = RequestMethod.GET)
 	public String welcome(ModelMap model) {
+		
 
 		model.addAttribute("message", "Welcome");
 		model.addAttribute("counter", ++counter);

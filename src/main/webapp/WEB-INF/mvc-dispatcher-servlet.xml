@@ -1,13 +1,32 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee.xsd
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:component-scan base-package="com.bhanu.controller" />
+	<context:component-scan base-package="com.bhanu.controller, com.bhanu.DAO, com.bhanu.Service" />
+	<context:annotation-config></context:annotation-config>
+<!-- 
+	<jee:jndi-lookup jndi-name="jdbc/bhanuOracle" id="dataSouce" expected-type="java.sql.DataSource"></jee:jndi-lookup>
+ -->
+ 
+	 <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+    	<property name="jndiName" value="java:comp/env/jdbc/bhanuOracle"/>
+    	<property name="proxyInterface"  value="javax.sql.DataSource" />
+	</bean>
+	
+	<!--  
+	<bean id="dbHandle" class="com.bhanu.DAO.DBHandle">
+		<property name="ds">
+			<ref bean="dataSource"/>
+		</property>
+	</bean>
+	-->
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
